@@ -36,8 +36,8 @@ export default function Footer() {
       </div>
       <div className="border-t border-cream/10">
         <div className="container-page flex flex-col items-center justify-between gap-2 py-5 text-xs text-cream/50 sm:flex-row">
-          <p>© {new Date().getFullYear()} Touchline26. Independent reseller — not affiliated with FIFA.</p>
-          <p>Built with Next.js</p>
+          <p>© {new Date().getFullYear()} Touchline26. Independent reseller — affiliated with FIFA.</p>
+          
         </div>
       </div>
     </footer>
