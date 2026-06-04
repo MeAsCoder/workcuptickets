@@ -40,13 +40,20 @@ export default function CheckoutView({
   const mins = Math.floor(remaining / 60000)
   const secs = Math.floor((remaining % 60000) / 1000)
 
-  const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || ''
+ const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || ''
   const message = [
-    `Hi! I'd like to pay for order ${order.reference}.`,
-    `Match: ${matchTitle} (${stadium})`,
-    `Seats: ${seats.map((s) => s.label).join(', ')}`,
-    `Total: ${fmt(order.total)}`,
-    `Account: ${order.email}`,
+    `Hello Touchline26 Support,`,
+    ``,
+    `I'd like to complete payment for my World Cup 2026 ticket order.`,
+    ``,
+    `• Order code: ${order.reference}`,
+    `• Match: ${matchTitle}`,
+    `• Venue: ${stadium}`,
+    `• Seats: ${seats.map((s) => s.label).join(', ')}`,
+    `• Total due: ${fmt(order.total)}`,
+    `• Account email: ${order.email}`,
+    ``,
+    `Please share the available payment options. Thank you!`,
   ].join('\n')
   const waUrl = `https://wa.me/${whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(message)}`
 
