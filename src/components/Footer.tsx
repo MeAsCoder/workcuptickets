@@ -8,10 +8,17 @@ export default function Footer() {
       <div className="container-page grid gap-10 py-14 md:grid-cols-4">
         <div className="md:col-span-2">
           <div className="flex items-center gap-2.5">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-lime text-ink">
+            <span className="grid h-10 w-10 place-items-center rounded-xl bg-lime text-ink">
               <Ticket className="h-5 w-5" />
             </span>
-            <span className="font-display text-lg font-extrabold">Touchline26</span>
+            <span className="leading-none">
+              <span className="block font-display text-xl font-extrabold tracking-tight">
+                Touch<span className="text-brand">line</span>26
+              </span>
+              <span className="mt-0.5 block text-[10px] font-bold uppercase tracking-[0.18em] text-cream/50">
+                Reliable. Secure. Enjoy the match.
+              </span>
+            </span>
           </div>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-cream/70">
             Reserved-seat resale for the 2026 tournament. Pick your seats, hold them while you
@@ -36,8 +43,7 @@ export default function Footer() {
       </div>
       <div className="border-t border-cream/10">
         <div className="container-page flex flex-col items-center justify-between gap-2 py-5 text-xs text-cream/50 sm:flex-row">
-          <p>© {new Date().getFullYear()} Touchline26. Independent reseller — affiliated with FIFA.</p>
-          
+          <p>© {new Date().getFullYear()} Touchline26. Independent reseller — not affiliated with FIFA.</p>
         </div>
       </div>
     </footer>
