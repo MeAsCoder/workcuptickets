@@ -63,9 +63,7 @@ function LoginForm() {
         <Button type="submit" size="lg" className="mt-6 w-full" disabled={loading}>
           {loading ? 'Signing in…' : 'Sign in'}
         </Button>
-        <div className="mt-4 rounded-xl bg-pitch-50 px-4 py-3 text-xs text-pitch-dark">
-          <strong>Demo:</strong> admin@worldcuptickets.test / admin1234 · fan@worldcuptickets.test / fan12345
-        </div>
+       
       </form>
       <p className="mt-5 text-center text-sm text-ink-500">
         New here?{' '}
