@@ -1,0 +1,101 @@
+// World Cup Tickets — PostgreSQL schema (Neon / Vercel Postgres)
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")          // pooled connection (used at runtime)
+  directUrl = env("DATABASE_URL_UNPOOLED") // direct connection (used for db push / migrations)
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  password  String
+  name      String?
+  // "CUSTOMER" | "ADMIN"
+  role      String     @default("CUSTOMER")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  orders    Order[]
+  cartItems CartItem[]
+}
+
+model Match {
+  id          String           @id @default(cuid())
+  homeTeam    String
+  awayTeam    String
+  homeFlag    String?
+  awayFlag    String?
+  stage       String           @default("Group Stage")
+  group       String?
+  num         Int?
+  stadium     String
+  city        String?
+  countryCode String?
+  date        DateTime
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  categories TicketCategory[]
+  seats      Seat[]
+}
+
+model TicketCategory {
+  id      String @id @default(cuid())
+  name    String
+  price   Float
+  // tailwind-ish accent name for the UI legend
+  accent  String @default("pitch")
+  matchId String
+  match   Match  @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  seats   Seat[]
+}
+
+model Seat {
+  id            String         @id @default(cuid())
+  row           String
+  number        Int
+  // "AVAILABLE" | "RESERVED" | "SOLD"
+  status        String         @default("AVAILABLE")
+  reservedUntil DateTime?
+  categoryId    String
+  category      TicketCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  matchId       String
+  match         Match          @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  orderId       String?
+  order         Order?         @relation(fields: [orderId], references: [id])
+  createdAt     DateTime       @default(now())
+
+  @@unique([matchId, row, number])
+  @@index([matchId])
+}
+
+model Order {
+  id          String     @id @default(cuid())
+  reference   String     @unique
+  userId      String
+  user        User       @relation(fields: [userId], references: [id])
+  totalAmount Float
+  // "PENDING_PAYMENT" | "CONFIRMED" | "ISSUED" | "CANCELLED" | "EXPIRED"
+  status      String     @default("PENDING_PAYMENT")
+  seats       Seat[]
+  cartItems   CartItem[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  expiresAt   DateTime
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  seatId    String   @unique
+  matchId   String
+  orderId   String?
+  order     Order?   @relation(fields: [orderId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([userId, seatId])
+}

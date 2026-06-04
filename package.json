@@ -1,0 +1,54 @@
+{
+  "name": "worldcup-tickets",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "postinstall": "prisma generate",
+    "db:push": "prisma db push",
+    "db:seed": "node prisma/seed.mjs",
+    "db:setup": "prisma db push && node prisma/seed.mjs",
+    "db:reset": "prisma db push --force-reset && node prisma/seed.mjs",
+    "cleanup": "node prisma/cleanup.mjs"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "clsx": "^2.1.1",
+    "jose": "^5.9.6",
+    "lucide-react": "^0.454.0",
+    "next": "14.2.18",
+    "qrcode": "^1.5.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.53.2",
+    "react-hot-toast": "^2.4.1",
+    "tailwind-merge": "^2.5.4",
+    "zod": "^3.23.8",
+    "@prisma/client": "^5.22.0",
+    "nodemailer": "^6.9.16"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20.17.6",
+    "@types/qrcode": "^1.5.5",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "14.2.18",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
+    "typescript": "^5.6.3",
+    "prisma": "^5.22.0",
+    "@types/nodemailer": "^6.4.16"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.mjs"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  }
+}
