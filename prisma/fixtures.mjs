@@ -104,13 +104,16 @@ export function roundInfo(round = '') {
 }
 
 // Deterministic, plausible-looking resale prices per match.
+// Deterministic, plausible-looking resale prices per match.
+// Minimum price is $150 (USD base); higher tiers/rounds scale up from there.
 function pricesFor(tier, num) {
   const jitter = 0.85 + ((num * 37) % 30) / 100 // 0.85..1.14, stable per match
-  const r = (n) => Math.round((n / 5)) * 5
+  const FLOOR = 150
+  const r = (n) => Math.max(FLOOR, Math.round((n / 5)) * 5)
   return {
-    c1: r(320 * tier * jitter),
-    c2: r(175 * tier * jitter),
-    c3: r(95 * tier * jitter),
+    c1: r(360 * tier * jitter),
+    c2: r(240 * tier * jitter),
+    c3: r(165 * tier * jitter),
   }
 }
 
